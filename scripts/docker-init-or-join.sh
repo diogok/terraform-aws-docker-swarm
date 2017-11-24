@@ -15,7 +15,7 @@ fi
 
 DONE=no
 if [ "$ROLE" == "manager" ]; then
-  if [ "$INDEX" == "0" ]; then
+  if [ "$INDEX" == "0" ]; then # only not joining existing swarm
     echo "Initializing docker swarm"
     docker swarm init
     DONE=yes

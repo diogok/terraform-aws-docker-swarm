@@ -50,11 +50,11 @@ resource "null_resource" "swarm_worker" {
   }
 
   provisioner "remote-exec" {
-    inline=["sudo mkdir -p /opt/keys/manager"]
+    inline=["sudo mkdir -p /opt/keys/manager","sleep 15","sudo chown admin.admin /opt/keys -Rf"]
   }
 
   provisioner "file" {
-    source="keys/${var.name}/${aws_instance.swarm_manager.0.public_ip}/"
+    source="keys/${var.name}/${var.join_existing_swarm?var.existing_swarm_manager:aws_instance.swarm_manager.0.private_ip}/"
     destination="/opt/keys/manager"
   }
 
